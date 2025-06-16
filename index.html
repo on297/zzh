@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -16,32 +15,19 @@
       text-align: center;
     }
 
-    .loading-container {
+    .container {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      padding: 20px;
     }
 
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 5px solid #eee;
-      border-top: 5px solid #3498db;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .loading-text {
-      font-size: 16px;
-      color: #666;
-      margin-bottom: 20px;
+    .title {
+      font-size: 18px;
+      margin-bottom: 24px;
+      color: #555;
     }
 
     .link-options {
@@ -67,15 +53,39 @@
   </style>
 </head>
 <body>
-  <main class="loading-container" role="status" aria-live="polite">
-    <div class="spinner" aria-label="页面加载中"></div>
-    <p class="loading-text">请选择一个通道进入页面：</p>
+  <main class="container">
+    <div class="title">请选择一个通道进入页面：</div>
     <div class="link-options">
-      <a href="https://www.baidu.com/link?url=mOFibfZsoRxAWTsI-Kzyzu15uL3Y-HC4s940m_p4wHe&wd=&eqid=e99567070001cb4f000000066841ea9a&ptname=dm&bucket=VmCtrFKyRfdX" target="_blank">通道一</a>
-      <a href="https://mp.weixin.qq.com/mp/readtemplate?t=pages/wapredirect&url=https://news.wx.lzxd.cn/?bucket=lNJm4tsQ8PWJ" target="_blank">通道二</a>
-      <a href="https://mp.weixin.qq.com/mp/readtemplate?t=pages/wapredirect&url=https://news.wx.lzxd.cn/?bucket=o7ltaKRKQCKN" target="_blank">通道三</a>
-      <a href="https://mp.weixin.qq.com/mp/readtemplate?t=pages/wapredirect&url=http://imgs.bkpos.top/huichuan-materialcenter-file/1a60a9ed9b50408c875dbba1b9df282a/5c0eed96638c485983b1ca8311ad1f57.html?bucket=dmhPFSXM6ify" target="_blank">通道四</a>
+      <a href="#" data-channel="1">通道一</a>
+      <a href="#" data-channel="2">通道二</a>
+      <a href="#" data-channel="3">通道三</a>
+      <a href="#" data-channel="4">通道四</a>
     </div>
   </main>
+
+  <script>
+    const baseRedirectURL = "https://mp.weixin.qq.com/mp/readtemplate?t=pages/wapredirect&url=";
+    const realTargetBase = "https://cos.ap-beijing.myqcloud.com/xcf-1323004319/ab074f784fa14c6dbc27429f063b9f2f/20250614/5170469f6c9b40efab974b3327cd4a08/5e54b7bedcb347f0aa762a7962bfa591.html";
+    const bucketParam = "&bucket=GcuP742DbCSh";
+
+    document.querySelectorAll('.link-options a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const channel = this.getAttribute('data-channel');
+
+        // 点击打点（通过加载图片方式，不影响跳转）
+        const trackingImg = new Image();
+        trackingImg.src = `https://your-tracking-domain.com/track.gif?channel=${channel}&ts=${Date.now()}`;
+
+        // 拼接跳转链接（带上分流参数）
+        const fullTarget = `${realTargetBase}?channel=${channel}`;
+        const fullRedirect = `${baseRedirectURL}${encodeURIComponent(fullTarget)}${bucketParam}`;
+
+        // 跳转
+        window.location.href = fullRedirect;
+      });
+    });
+  </script>
 </body>
 </html>
+
