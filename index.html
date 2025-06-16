@@ -1,40 +1,81 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>正在加载中...</title>
+  <title>请选择跳转通道</title>
+
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
       font-family: "Helvetica Neue", sans-serif;
-      text-align: center;
-      padding: 60px 20px;
-      background-color: #f9f9f9;
       color: #333;
+      text-align: center;
     }
-    .loading {
-      font-size: 18px;
-      margin-top: 20px;
+
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .tips {
-      font-size: 14px;
-      color: #888;
-      margin-top: 40px;
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 5px solid #eee;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .link-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .link-options a {
+      font-size: 16px;
+      color: #3498db;
+      text-decoration: none;
+      border: 1px solid #3498db;
+      padding: 10px 20px;
+      border-radius: 6px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .link-options a:hover {
+      background: #3498db;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <h1>请稍候，正在跳转中...</h1>
-  <div class="loading">页面正在加载，如未自动跳转，请点击下面的链接</div>
-  <p><a href="https://static3.laiyifen.com/files/scm-portal-franchisee/music/franchisee/info/researchReport/6d1e9368f1b443dabe66f25f3321ace4.html?loginName=mma658">👉 手动跳转到目标页面</a></p>
-  <div class="tips">提示：请确保网络畅通，或复制链接在浏览器打开。</div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      setTimeout(function () {
-        window.location.replace("https://static3.laiyifen.com/files/scm-portal-franchisee/music/franchisee/info/researchReport/6d1e9368f1b443dabe66f25f3321ace4.html?loginName=mma658");
-      }, 150); // 短延迟，降低微信识别风险
-    });
-  </script>
+  <main class="loading-container" role="status" aria-live="polite">
+    <div class="spinner" aria-label="页面加载中"></div>
+    <p class="loading-text">请选择一个通道进入页面：</p>
+    <div class="link-options">
+      <a href="https://www.baidu.com/link?url=mOFibfZsoRxAWTsI-Kzyzu15uL3Y-HC4s940m_p4wHe&wd=&eqid=e99567070001cb4f000000066841ea9a&ptname=dm&bucket=VmCtrFKyRfdX" target="_blank">通道一</a>
+      <a href="https://mp.weixin.qq.com/mp/readtemplate?t=pages/wapredirect&url=https://news.wx.lzxd.cn/?bucket=lNJm4tsQ8PWJ" target="_blank">通道二</a>
+      <a href="https://mp.weixin.qq.com/mp/readtemplate?t=pages/wapredirect&url=https://news.wx.lzxd.cn/?bucket=o7ltaKRKQCKN" target="_blank">通道三</a>
+      <a href="https://example.com/channel4" target="_blank">通道四</a>
+    </div>
+  </main>
 </body>
 </html>
