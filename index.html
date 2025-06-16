@@ -13,7 +13,6 @@
       color: #333;
       text-align: center;
     }
-
     .container {
       display: flex;
       flex-direction: column;
@@ -22,19 +21,16 @@
       min-height: 100vh;
       padding: 20px;
     }
-
     .title {
       font-size: 18px;
       margin-bottom: 24px;
       color: #555;
     }
-
     .link-options {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
-
     .link-options a {
       font-size: 16px;
       color: #3498db;
@@ -44,7 +40,6 @@
       border-radius: 6px;
       transition: background 0.3s, color 0.3s;
     }
-
     .link-options a:hover {
       background: #3498db;
       color: #fff;
@@ -54,12 +49,26 @@
 <body>
   <main class="container">
     <div class="title">请选择一个通道进入页面：</div>
-    <div class="link-options">
-      <a href="https://www.baidu.com/link?url=mOFibfZsoRxAWTsI-Kzyzu15uL3Y-HC4s940m_p4wHe&wd=&eqid=e99567070001cb4f000000066841ea9a&ptname=dm&bucket=VuCtsRS2MCEk">通道A</a>
-      <a href="https://mp.weixin.qq.com/mp/readtemplate?t=pages/wapredirect&url=http://imgs.bkpos.top/huichuan-materialcenter-file/06626732c10346978ea1f4db9ebfc5ce/1ba3f00fe16c4d52a1e1d64980205c57.html?bucket=Nuryfu6ti3RU&bucket=GcuP742DbCSh">通道A</a>
-      <a href="https://www.baidu.com/link?url=CXWPh0dj_rbyXTKXtwgg0f29X3BqbGMSlilcJmXxBty&wd=&eqid=a4b5ceb8008ae9d40000000668493970&ptname=dm&bucket=zUbRWpcPJq8T">通道B</a>
-      <a href="https://mp.weixin.qq.com/mp/readtemplate?t=pages/wapredirect&url=http://cbprodterm.manulife-sinochem.com/huichuan-materialcenter-file/48245464e53c466bbeaf8ff24f83eb67/ddae288c348a4f338ec49473e9e26ae2.html?bucket=WDWXJt2xeKSe&bucket=GcuP742DbCSh">通道B</a>
-    </div>
+    <div class="link-options" id="linkContainer">加载中...</div>
   </main>
+  <script>
+    fetch('links.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('linkContainer');
+        container.innerHTML = '';
+        data.forEach(link => {
+          const a = document.createElement('a');
+          a.href = link.url;
+          a.textContent = link.name;
+          a.target = "_blank";
+          container.appendChild(a);
+        });
+      })
+      .catch(error => {
+        document.getElementById('linkContainer').innerHTML = '加载链接失败';
+        console.error('加载失败:', error);
+      });
+  </script>
 </body>
 </html>
