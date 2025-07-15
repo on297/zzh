@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>请选择跳转通道</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     html, body {
       margin: 0;
       padding: 0;
-      background: #ffffff;
-      font-family: "Helvetica Neue", sans-serif;
+      font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #f3f4ff);
       color: #333;
       text-align: center;
     }
@@ -19,56 +22,133 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 30px 20px;
     }
     .title {
-      font-size: 18px;
-      margin-bottom: 24px;
-      color: #555;
+      font-size: 24px;
+      background: linear-gradient(135deg, #3498db, #8e44ad);
+      color: #fff;
+      padding: 18px 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      margin-bottom: 36px;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
     .link-options {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 18px;
+      width: 100%;
+      max-width: 440px;
     }
     .link-options a {
-      font-size: 16px;
-      color: #3498db;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 17px;
+      padding: 14px 20px;
+      border-radius: 10px;
       text-decoration: none;
-      border: 1px solid #3498db;
-      padding: 10px 20px;
-      border-radius: 6px;
-      transition: background 0.3s, color 0.3s;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, background-color 0.3s, color 0.3s;
     }
-    .link-options a:hover {
-      background: #3498db;
+    .link-options a::before {
+      content: "✅";
+      margin-right: 8px;
+      font-size: 18px;
+    }
+    .link-options a.a {
+      color: #3498db;
+      border: 1px solid #3498db;
+      background-color: #fff;
+    }
+    .link-options a.a:hover {
+      background-color: #3498db;
       color: #fff;
+    }
+    .link-options a.b {
+      color: #e67e22;
+      border: 1px solid #e67e22;
+      background-color: #fff;
+    }
+    .link-options a.b:hover {
+      background-color: #e67e22;
+      color: #fff;
+    }
+    .link-options a.c {
+      color: #9b59b6;
+      border: 1px solid #9b59b6;
+      background-color: #fff;
+    }
+    .link-options a.c:hover {
+      background-color: #9b59b6;
+      color: #fff;
+    }
+    .link-options a.d {
+      color: #e74c3c;
+      border: 1px solid #e74c3c;
+      background-color: #fff;
+    }
+    .link-options a.d:hover {
+      background-color: #e74c3c;
+      color: #fff;
+    }
+    .link-options a.e {
+      color: #1abc9c;
+      border: 1px solid #1abc9c;
+      background-color: #fff;
+    }
+    .link-options a.e:hover {
+      background-color: #1abc9c;
+      color: #fff;
+    }
+    .link-options a.green {
+      color: #2c3e50;
+      border: 1px solid #27ae60;
+      background-color: #fff;
+    }
+    .link-options a.green:hover {
+      background-color: #27ae60;
+      color: #fff;
+    }
+    @media (max-width: 480px) {
+      .title {
+        font-size: 20px;
+        padding: 14px 20px;
+      }
+      .link-options a {
+        font-size: 16px;
+        padding: 12px 18px;
+      }
     }
   </style>
 </head>
 <body>
   <main class="container">
-    <div class="title">请选择一个通道进入页面：</div>
-    <div class="link-options" id="linkContainer">加载中...</div>
+    <div class="title">请选择一个通道进入您要访问的页面</div>
+    <div class="link-options">
+      <a class="a" href="https://doc.weixin.qq.com/forms/AOMAhwdgAHYAYQA3wZ_AI8CNJAlVTTFRf" onclick="_hmt && _hmt.push(['_trackEvent', '按钮点击', '点击', '通道A'])">A. 精选合集，点击欣赏</a>
+      <a class="a" href="https://doc.weixin.qq.com/forms/AOMAhwdgAHYAYQA3wZ_AI8CNk5nXfLyef" onclick="_hmt && _hmt.push(['_trackEvent', '按钮点击', '点击', '通道B'])">B. 独家资源，点击获取</a>
+      <a class="c" href="https://on297.github.io/video-share-demo" onclick="_hmt && _hmt.push(['_trackEvent', '按钮点击', '点击', '通道C'])">C. 备用通道，定期更新</a>
+      <a class="d" href="https://baidu.com" onclick="_hmt && _hmt.push(['_trackEvent', '按钮点击', '点击', '通道D'])">D. 热门推荐</a>
+      <a class="e" href="https://baidu.com" onclick="_hmt && _hmt.push(['_trackEvent', '按钮点击', '点击', '通道E'])">E. 最新更新</a>
+      <a class="green" href="https://baidu.com" onclick="_hmt && _hmt.push(['_trackEvent', '按钮点击', '点击', '通道F'])">F. 更多资源</a>
+    </div>
   </main>
+
+  <!-- 延迟加载百度统计（优化版） -->
   <script>
-    fetch('links.json')
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById('linkContainer');
-        container.innerHTML = '';
-        data.forEach(link => {
-          const a = document.createElement('a');
-          a.href = link.url;
-          a.textContent = link.name;
-          a.target = "_blank";
-          container.appendChild(a);
-        });
-      })
-      .catch(error => {
-        document.getElementById('linkContainer').innerHTML = '加载链接失败';
-        console.error('加载失败:', error);
-      });
+    setTimeout(function () {
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?91c28d87b7d87b581fb560f0addfd772";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      window._hmt = _hmt; // 保证全局可访问
+    }, 300); // 延迟 300ms
   </script>
 </body>
 </html>
